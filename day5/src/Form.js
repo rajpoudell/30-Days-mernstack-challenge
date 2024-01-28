@@ -13,7 +13,7 @@ export const Form = () => {
   const handleChange = (e) => {
     setFormData((prevData) => ({ ...prevData, [e.target.name]: e.target.value }));
     // The following log may not reflect the updated state immediately
-    console.log(formData);
+    // console.log(formData);
   };
 
   const handleSubmit = async (e) => {
