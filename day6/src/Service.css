@@ -1,0 +1,36 @@
+/* Service.css */
+
+.service-container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f2f2f2;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  h2 {
+    color: #27ae60;
+  }
+  
+  p {
+    color: #333;
+    font-size: 1.2em;
+    line-height: 1.5;
+  }
+  
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  li {
+    background-color: #3498db;
+    color: #fff;
+    padding: 8px;
+    margin: 8px 0;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
