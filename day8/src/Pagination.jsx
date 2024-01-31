@@ -4,31 +4,39 @@ import './App.css';
 
 export const Pagination = () => {
     
-  const [data, setData] = useState([]);
+// ... (existing imports)
+
+const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [sortOrder, setSortOrder] = useState("asc"); // "asc" or "desc"
   const recordsPerPage = 10;
-  
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          "https://jsonplaceholder.typicode.com/posts"
+          `http://localhost:3001/?page=${currentPage}&limit=${recordsPerPage}&sortField=name&sortOrder=${sortOrder}`
         );
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
         const fetchedData = await response.json();
         setData(fetchedData);
       } catch (error) {
         console.error(error);
+        // Handle error, e.g., show an error message to the user
       }
     };
 
     fetchData();
-  }, []);
+  }, [currentPage, sortOrder]);
+const sortedData = [...data].sort((a, b) => {
+  const order = sortOrder === "asc" ? 1 : -1;
+  return order * (a.name.localeCompare(b.name));
+});
 
-  const sortedData = [...data].sort((a, b) => {
-    const order = sortOrder === "asc" ? 1 : -1;
-    return order * (a.id - b.id);
-  });
 
   const lastIndex = currentPage * recordsPerPage;
   const firstIndex = lastIndex - recordsPerPage;
@@ -42,16 +50,19 @@ export const Pagination = () => {
   const handleSortChange = () => {
     setSortOrder(sortOrder === "asc" ? "desc" : "asc");
   };
+  const calculateSerialNumber = (index) => {
+    return (currentPage - 1) * recordsPerPage + index + 1;
+  };
 
   return (
     <div>
       <button onClick={handleSortChange}>Toggle Sort</button>
       <ul className="ul">
-        {records.map((d) => (
+        {records.map((d,index) => (
           <li key={d.id}>
-            <strong>Sno:</strong> {d.id}.
-            <strong>Name:</strong> {d.title}, 
-            <strong>body:</strong> {d.body}
+            <strong>Sno:</strong> {calculateSerialNumber(index)}.
+            <strong>Name:</strong> {d.name}, 
+            <strong>Job:</strong> {d.job}
             
             <hr />
           </li>
