@@ -1,8 +1,9 @@
 const express = require("express");
 const bodyParser = require('body-parser');
-const Usermodel  = require('../model/model');
+const {Usermodel}  = require('../model/model');
 const router = express.Router();
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const  mongoose = require('mongoose');
 const verifyToken = require("../middlewares/veriifyToken");
 
@@ -13,6 +14,7 @@ router.get('/protected-route', verifyToken, (req, res) => {
   res.send({ message: 'Access granted', user: req.user });
 });
 
+//for frontend to display a register user 
 router.get("/registereduser", async (req, res) => {
   try {
     const users = await Usermodel.find({}, "username email"); // Adjust fields based on your User schema

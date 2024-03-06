@@ -12,7 +12,7 @@ const Login = () => {
 
       const response = await axios.post('http://localhost:4000/login', { email, password });
       const token = response.data.token;
-
+      
       alert("log in")
     } catch (error) {
       console.error('Error registering user', error);

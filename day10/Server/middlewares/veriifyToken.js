@@ -15,7 +15,7 @@ const verifyToken = (req, res, next) => {
 
     // Attach the decoded user information to the request for later use in the protected route
     req.user = decoded;
-    next();
+    return next();
   });
 };
 
