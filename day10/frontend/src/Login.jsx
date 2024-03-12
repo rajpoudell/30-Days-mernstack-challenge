@@ -12,6 +12,9 @@ const Login = () => {
 
       const response = await axios.post('http://localhost:4000/login', { email, password });
       const token = response.data.token;
+      console.log("login successfully");
+      console.log(token);
+      
       
       alert("log in")
     } catch (error) {
