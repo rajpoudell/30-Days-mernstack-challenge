@@ -34,7 +34,7 @@ router.get("/registereduser", async (req, res) => {
             ${userArray
               .map(
                 (user) =>
-                  `<tr><td>${user.username}</td><td>${user.email}</td></tr>`
+                  `<tr><td>${user.username}</td><td>${user.email}</td> </tr> `
               )
               .join("")}
           </tbody>
@@ -54,8 +54,10 @@ router.post('/register' , async(req,res) =>{
     try {
         const hashedPassword = await bcrypt.hash(password, 10);
         
-        const newUser = new Usermodel({username,email,password:hashedPassword});
-        await Usermodel.create(newUser);
+        // const newUser = new Usermodel({username,email,password:hashedPassword});
+        // await Usermodel.create(newUser);
+        const newUser = await Usermodel.create({username, email, password: hashedPassword});
+
         let token = jwt.sign(
             {
                 userId: newUser.id,
@@ -64,7 +66,9 @@ router.post('/register' , async(req,res) =>{
             "secretkeyappearshere",
             { expiresIn: "1h" }
         );
-        res.json({ success: true, message: 'User registered successfully' });
+        newUser.tokens = newUser.tokens.concat({token});
+        await newUser.save();
+        res.json({ success: true, message: 'User registered successfully' , token:token });
         
     } catch (error) {
         console.log(error)

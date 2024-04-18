@@ -8,7 +8,7 @@ const cors = require('cors');
 const router = require('./routes/route');
 const secretKey = 'yourSecretKey'; 
 const PORT = 4000;
-mongoose.connect('mongodb://127.0.0.1:27017/day9ko_database').then( (e)=> { console.log("mongodb connectd")});
+mongoose.connect('mongodb://127.0.0.1:27017/day10after4thsem').then( (e)=> { console.log("mongodb connectd")});
 
 const app = express();
 
