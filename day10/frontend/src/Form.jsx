@@ -1,5 +1,5 @@
 import React, {  useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 
 export const Form = () => {
   const [values, setValues] = useState({
@@ -20,7 +20,7 @@ export const Form = () => {
     e.preventDefault();
     // Send form data to the server
     fetch("http://localhost:4000/register", {
-      method: "POST",
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
@@ -34,12 +34,13 @@ export const Form = () => {
       .catch((error) => {
         console.log("Error:", error);
       });
-
+      
       setValues({
         username: '',
         email: '',
         password: '',
       });
+      alert("registered successfully")
   };
 
   return (

@@ -1,5 +1,55 @@
-.token{
-    width: 100px;
-    overflow-wrap: break-word;
-    background-color: rgb(159, 145, 127);
+.profile {
+    background-color: #f3f4f6;  /* Light grey background */
+    border: 1px solid #ccc;     /* Adding a light border */
+    border-radius: 8px;         /* Rounded corners */
+    padding: 20px;              /* Padding around the content */
+    max-width: 400px;           /* Max width of the box */
+    margin: 20px auto;          /* Centering the box */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
+    font-family: 'Arial', sans-serif; /* Font family for all text */
+   
+}
+
+.child {
+    color: #333;              /* Dark grey text color */
+    margin: 10px 0;           /* Margin for top and bottom */
+}
+
+h1.child {
+    font-size: 24px;          /* Larger font size for name */
+    color: #2a9d8f;           /* Teal color for name */
+}
+
+h2.child {
+    font-size: 20px;          /* Slightly smaller font size for email */
+    color: #e76f51;           /* Coral color for email */
+}
+
+h3.token {
+    font-size: 16px;
+    color: #264653;
+    font-weight: bold;
+    overflow: hidden;          /* Ensures the overflow text is hidden */
+    white-space: nowrap;       /* Prevents the text from wrapping */
+    text-overflow: ellipsis;   /* Adds an ellipsis to indicate clipped text */
+    max-width: 90%; 
+    flex-wrap: nowrap;     /* Bold font weight */
+
+}
+
+h3.child {
+    font-size: 16px;          /* Standard font size for other h3 */
+}
+.btn1{
+    background-color: #4f46e5;
+    padding: 10px;
+    color: white;
+    border-radius: 10px;
+    border-color: none !important;
+    outline: none !important;;
+}
+.btn1:hover{
+    background-color:#4e46e5d5 ;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
 }

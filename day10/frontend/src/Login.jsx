@@ -1,29 +1,33 @@
-import axios from "axios";
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from 'react';
+import axios from 'axios';
+import { Link, useNavigate } from 'react-router-dom';
 
-const Login = () => {
-
+const Login = () => { 
   const [email, setemail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
-  const handleLogin = async () => {
+  const handleLogin = async (e) => {
+    e.preventDefault();
     try {
-
       const response = await axios.post('http://localhost:4000/login', { email, password });
       const token = response.data.token;
-      console.log("login successfully");
-      console.log(token);
-      
-      
-      alert("log in")
+
+      if (token) {
+        localStorage.setItem('token', token);
+        console.log("Login successfully:", token);
+        alert("Login successful");
+        navigate('/myprofile')
+      } else {
+        alert("Login failed: " + response.data.message);
+      }
     } catch (error) {
-      console.error('Error registering user', error);
+      console.error('Error logging in', error);
     }
   };
 
   return (
-    <>
+      <>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
@@ -84,7 +88,6 @@ const Login = () => {
               <button
                 type="submit"
                 className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                
               >
                 Sign in
               </button>
