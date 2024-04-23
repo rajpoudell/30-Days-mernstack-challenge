@@ -1,0 +1,62 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+.table-container {
+    margin: 20px;
+    overflow-x: auto;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+table, th, td {
+    width: 90%;
+    margin: 10px auto ;
+    border: 1px solid #ccc;
+}
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+th {
+    background-color: #4CAF50;
+    color: white;
+}
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+img {
+    width: 100px;
+    height: auto;
+    border-radius: 5px;
+}
+/* style={{color:"red", fontStyle:"italic" }} */
+.del{
+    cursor: pointer;    
+    border-radius: 10px;
+    color: red;
+    /* font-style: italic; */
+    font-weight: 600;
+    border: 1px solid red;
+    padding: 10px;
+}
+.del:hover{
+    color:rgba(255, 0, 0, 0.641);
+    border: 1px solid rgba(255, 0, 0, 0.532);
+}
+.edit{
+    color:#4CAF50;
+    cursor: pointer;    
+    border-radius: 10px;
+
+    /* font-style: italic; */
+    font-weight: 600;
+    border: 1px solid rgb(43, 255, 0);
+    padding: 10px;
+}

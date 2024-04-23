@@ -37,40 +37,6 @@ router.post("/register", upload.single("files"), async (req, res) => {
     res.status(500).send({ message: "User registration failed" });
   }
 });
-
-router.get('/users', async(req, res) => {
-  try {
-    const users =  await Usermodel.find({},"firstName email");
-    const userArray = users.map(({ firstName, email }) => ({ firstName, email }));
-    // Create an HTML table
-    const tableHtml = `
-        <table border="1">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Email</th>
-            </tr> 
-          </thead>
-          <tbody>
-            ${userArray
-              .map(
-                (user) =>
-                  `<tr>
-                  <td>${user.firstName}</td>
-                  <td>${user.email}</td> </tr> 
-                  </tr> 
-                  `
-              )
-              .join("")}
-          </tbody>
-        </table>
-      `;
-
-    res.send(tableHtml);
-  } catch (error) {
-    res.send({ message: error });
-  }
-});
 router.get('/details', async (req, res) => {
   try {
       const users = await Usermodel.find({});
@@ -80,5 +46,45 @@ router.get('/details', async (req, res) => {
       res.status(500).send({ message: "Server Error" });
   }
 });
+router.delete('/delete/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const user = await Usermodel.findByIdAndDelete(id);
+    if (!user) {
+      return res.status(404).send({ message: "User not found" });
+    }
+    res.send({ message: "User deleted successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ message: "Error deleting user" });
+  }
+});
+router.put('/edit/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { firstName, lastName, email } = req.body;
+    const file = req.file;
+    const updatedUserData = {
+      firstName,
+      lastName,
+      email
+    };
+    if (file) {
+      updatedUserData.files = {
+        filename: file.filename,
+        path: file.path
+      };
+    }
+    const updatedUser = await Usermodel.findByIdAndUpdate(id, updatedUserData, { new: true });
+    if (!updatedUser) {
+      return res.status(404).send({ message: "User not found" });
+    }
+    res.send({ message: "User updated successfully", updatedUser });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ message: "Error updating user" });
+  }
+});
+
 
 module.exports = router;
