@@ -7,10 +7,8 @@ const TaskList = () => {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const token = localStorage.getItem('token');
-        const response = await axios.get('http://localhost:4000/', {
-          headers: { Authorization: `Bearer ${token}` }
-        });
+        const response = await axios.get('http://localhost:4000/tasks');
+        console.log("response data",response.data);
         setTasks(response.data);
       } catch (error) {
         console.error('Error fetching tasks:', error.response?.data?.message || error.message);
@@ -23,8 +21,12 @@ const TaskList = () => {
     <div>
       <h2>Tasks</h2>
       <ul>
-        {tasks.map(task => (
-          <li key={task._id}>{task.title}</li>
+        {console.log("Tasks ------>",tasks)}
+        {tasks.map((task,_id) => (
+          <ul key={task._id}>
+          <li >Title: {task.title}</li>
+          <li >Description: {task.description}</li>
+          </ul>
         ))}
       </ul>
     </div>

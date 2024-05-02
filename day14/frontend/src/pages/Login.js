@@ -3,21 +3,21 @@ import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 
 const Login = () => { 
-  const [email, setemail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:4000/login', { email, password });
+      const response = await axios.post('http://localhost:4000/login', { username, password });
       const token = response.data.token;
 
       if (token) {
         localStorage.setItem('token', token);
         console.log("Login successfully:", token);
         alert("Login successful");
-        // navigate('/myprofile')
+        navigate('/myprofile')
       } else {
         alert("Login failed: " + response.data.message);
       }
@@ -43,18 +43,20 @@ const Login = () => {
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
           <form className="space-y-6" onSubmit={handleLogin}>
             <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
-                Email address
-              </label>
+            <div className="flex items-center justify-between">
+                <label
+                  htmlFor="username"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Username
+                </label>
+              </div>
               <div className="mt-2">
                 <input
-                onChange={(e) => setemail(e.target.value)}
+                onChange={(e) => setUsername(e.target.value)}
                   id="email"
-                  name="email"
-                  type="email"
+                  name="username"
+                  type="text"
                   autoComplete="email"
                   required
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
