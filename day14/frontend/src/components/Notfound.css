@@ -44,7 +44,11 @@ ul {
 li {
   margin: 0;
 }
-
+li:hover{
+  scale: 1.1;
+  transition: 0.3s;
+  color:cadetblue ;
+}
 a {
   text-decoration: none;
   color: #fff;
@@ -54,7 +58,7 @@ a {
 }
 
 a:hover {
-  color: #ecf0f1;
+  color: antiquewhite;
 }
 
 hr {

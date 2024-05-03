@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import { Navbar } from './components/Navbar';
 import { Notfound } from './pages/Notfound';
 import UserProfile from './pages/UserProfile';
+import TaskForm from "./pages/TaskForm";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/" element={<Home/>}/>   
           <Route path="/register" element={<Register/>}/>   
           <Route path="/login" element={<Login/>}/>   
+          <Route path="/create" element={<TaskForm/>}/>   
           <Route path="*" element={<Notfound/>}/>   
           <Route path="/myprofile" element={<UserProfile/>}/>   
 

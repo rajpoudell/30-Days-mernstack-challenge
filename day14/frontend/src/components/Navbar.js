@@ -4,6 +4,13 @@ import "./Notfound.css"
 export const Navbar = () => {
     
   const auth = localStorage.getItem('token');
+  let username = '';
+
+  if (auth) {
+    // Parse the token to extract the username
+    const tokenData = JSON.parse(atob(auth.split('.')[1])); // Decode token
+    username = tokenData.username;
+  }
   const navigate =  useNavigate();
 
   const logout = () =>{
@@ -19,13 +26,14 @@ export const Navbar = () => {
         <nav>
           <ul>
             <li>
-                <Link to="">Home</Link>
+                <Link to="">All Blogs</Link>
             </li>
                   {
                     auth ? 
                           <>
-                          <li><Link onClick={logout} to='/login'>Logout  </Link></li>
+                          <li><Link  to='/create'>Create a blog  </Link></li>
                           <li> <Link to="/myprofile">My details</Link> </li>
+                          <li><Link onClick={logout} to='/login'>Logout-{username}  </Link></li>
                           </>
                           :
                           <> 
