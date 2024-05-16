@@ -3,7 +3,6 @@ const cors = require("cors");
 const axios = require("axios");
 const Redis = require("redis");
 
-const redisClient = Redis.createClient(6379);
 
 const app = express();
 const DEFAULT_EXPIRATION = 3600;
@@ -16,7 +15,14 @@ app.get("/", async(req, res) => {
   res.send("Hello world!");
 });
 
-
+(async () => {
+    redisClient = Redis.createClient();
+  
+    redisClient.on('error', (err) => console.log('Redis Client Error', err));
+  
+    await redisClient.connect();
+    
+  })();
 app.get("/photos", async (req, res) => {
   const albumId = req.query.albumId;
 
@@ -24,8 +30,7 @@ app.get("/photos", async (req, res) => {
     "https://jsonplaceholder.typicode.com/photos",
     { params: { albumId } }
   );
-  var jsonData = JSON.stringify(data);
-   redisClient.setex('photos',DEFAULT_EXPIRATION,jsonData);
+   redisClient.SETEX('photos',DEFAULT_EXPIRATION,JSON.stringify(data));
   res.send(data);
 });
 
