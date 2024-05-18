@@ -23,16 +23,37 @@ app.get("/", async(req, res) => {
     await redisClient.connect();
     
   })();
-app.get("/photos", async (req, res) => {
-  const albumId = req.query.albumId;
 
-  const { data } = await axios.get(
-    "https://jsonplaceholder.typicode.com/photos",
-    { params: { albumId } }
-  );
-   redisClient.SETEX('photos',DEFAULT_EXPIRATION,JSON.stringify(data));
-  res.send(data);
-});
+  app.get('/photos', async (req, res) => {
+      const albumId = req.query.albumId;
+      const cacheKey = `photos:${albumId}`; // Use a unique key for each albumId
+  
+      redisClient.get(cacheKey, async (error, reply) => {
+          if (error) {
+              console.error('Redis error:', error);
+              return res.status(500).send('Internal Server Error');
+          }
+          
+          if (reply != null) {
+              console.log("Cache hit");
+              return res.json(JSON.parse(reply));
+          } else {
+              console.log("Cache miss");
+              try {
+                  const { data } = await axios.get(
+                      "https://jsonplaceholder.typicode.com/photos",
+                      { params: { albumId } }
+                  );
+                  redisClient.setex(cacheKey, DEFAULT_EXPIRATION, JSON.stringify(data));
+                  return res.json(data);
+              } catch (apiError) {
+                  console.error('API error:', apiError);
+                  return res.status(500).send('Failed to fetch data from the API');
+              }
+          }
+      });
+  });
+  
 
 
 
