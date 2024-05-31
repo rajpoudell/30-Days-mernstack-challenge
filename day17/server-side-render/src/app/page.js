@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { Navbar } from "./components/Navbar";
 
 // `app/page.js` is the UI for the `/` URL
 export default function Page() {

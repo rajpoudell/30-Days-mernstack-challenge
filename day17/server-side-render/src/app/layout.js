@@ -11,8 +11,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        <Navbar />
-        <Suspense fallback={<h1>Loading...</h1>}>{children}</Suspense>
+        <Suspense fallback={<p>Loading...</p>}>
+          <Navbar />
+          {children}
+        </Suspense>
       </body>
     </html>
   );

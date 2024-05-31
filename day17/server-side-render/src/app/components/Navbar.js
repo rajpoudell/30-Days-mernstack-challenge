@@ -34,7 +34,7 @@ export const Navbar = () => {
   return (
     <nav className="bg-gray-800 text-white p-4 sm:p-4 md:flex md:justify-between md:items-center">
       <div className="container mx-auto flex justify-between items-center">
-        <a href="#" className="text-2xl font-black">
+        <a href="/" className="text-2xl font-black">
           Raj
         </a>
         <div className={getMenuClasses()}>
@@ -49,6 +49,9 @@ export const Navbar = () => {
           </Link>
           <Link href="/login" className="mx-2 hover:text-gray-300">
             Login
+          </Link>
+          <Link href="/testing" className="mx-2 hover:text-gray-300">
+            Test
           </Link>
         </div>
         <div className="md:hidden flex items-center">
