@@ -75,7 +75,9 @@ router.put('/edit/:id', async (req, res) => {
         path: file.path
       };
     }
-    const updatedUser = await Usermodel.findByIdAndUpdate(id, updatedUserData, { new: true });
+    const updatedUser = await Usermodel.findByIdAndUpdate(id, 
+      updatedUserData,
+       { new: true });
     if (!updatedUser) {
       return res.status(404).send({ message: "User not found" });
     }
