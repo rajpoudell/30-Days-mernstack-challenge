@@ -7,8 +7,8 @@ const port = 4000;
 app.use(express.json());//middleware
 
 const users = [
-    { id: "4e93ef35-1e00-40d9-89b2-925deecee072", name: "devisha" },
-    { id: "116e2303-5ceb-4749-8387-dfbf70cc429e", name: "ashreni" },
+    { id: "4e93ef35-1e00-40d9-89b2-925deecee072", name: "john" },
+    { id: "116e2303-5ceb-4749-8387-dfbf70cc429e", name: "doe" },
     { id: "13a95f61-2214-4d09-90f8-a21ac151b9cc", name: "raj" }
   
 ];
