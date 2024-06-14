@@ -3,4 +3,8 @@
 }
 .form{
   text-align: center;
+  padding-top: 20px;
+}
+.form  input{
+  margin: 20px;
 }

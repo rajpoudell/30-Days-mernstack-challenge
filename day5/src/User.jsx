@@ -1,68 +1,67 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
+import "./index.css";
 
 export const User = () => {
+  const [fetchData, setFetchData] = useState([]);
+  const [loader, setLoader] = useState(true); // Assume loading starts as true initially
 
-    const [fetchData, setFetchData] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('http://localhost:4000/');
 
-    const [loader, setLoader] = useState(false);
-  
-  
-    // Effect to fetch data when the component mounts
-    useEffect(() => {
-      let isMounted = true;
-  
-      const fetchData = async () => {
-        try {
-          // setLoader(true);
-          const response = await axios.get('http://localhost:3001/');
-  
-          if (!response.data) {
-            throw new Error('Failed to fetch data');
-          }
-  
-          if (isMounted) {
-            setFetchData(response.data);
-          }
-        } catch (error) {
-          console.error('Error fetching data:', error);
-          // Handle error state or show an error message to the user
-        } finally {
-          if (isMounted) {
-            setLoader(false);
-          }
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
         }
-      };
-  
-      fetchData();
-  
-      return () => {
-        // Cleanup function to set isMounted to false when the component is unmounted
-        isMounted = false;
-      };
-    }, []);
-     
-  
-    return (
-      <div className="App">
-  
-          {loader ?
-          <div className="loader">
-            <div className="circle"></div>
-            <div className="circle"></div>
-            <div className="circle"></div>
-            <div className="circle"></div>
-           </div> :
-          <div>
-            
+
+        const data = await response.json();
+
+        setFetchData(data || []); 
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      } finally {
+
+        setLoader(false);
+
+      }
+    };
+
+    fetchData(); 
+
+  }, []); 
+
+  return (
+    <div className="App">
+      {loader ? (
+        <div className="loader">
+          <div className="circle"></div>
+          <div className="circle"></div>
+          <div className="circle"></div>
+          <div className="circle"></div>
+        </div>
+      ) : (
+        <div>
           <h1>Posts:</h1>
-           <ul>
-          {fetchData.map((post) => (
-            <li key={post._id}>{post.name}</li>
-            ))}
-        </ul>
-            </div>
-        }
-      </div>
-    )
-}
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Job</th>
+                <th>Salary</th>
+              </tr>
+            </thead>
+            <tbody>
+              {fetchData.map((post) => (
+                <tr key={post._id}>
+                  <td>{post.name}</td>
+                  <td>{post.job}</td>
+                  <td>{post.salary}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </div>
+  );
+};

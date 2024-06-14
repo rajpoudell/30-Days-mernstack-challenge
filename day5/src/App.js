@@ -8,9 +8,6 @@ function App() {
 return(
   <div>
     <Form />
-    {/* < Testinglocalhost /> */}
-
-    <User/>
   </div>
   );
 }

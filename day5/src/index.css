@@ -26,7 +26,7 @@ body {
 }
 
 .loader {
-  --dim: 100vh; /* Set the height and width to the full viewport height */
+  --dim: 15vh; /* Set the height and width to the full viewport height */
   width: var(--dim);
   height: var(--dim);
   
@@ -38,7 +38,7 @@ body {
 }
 
 .loader .circle {
-  --color: #333;
+  --color: #fafafa;
   --dim: 1.2rem;
   width: var(--dim);
   height: var(--dim);
@@ -87,4 +87,20 @@ body {
   95%, 100% {
     transform: scale(1) rotate(360deg);
   }
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #f4f4f4;
+  font-weight: bold;
 }
