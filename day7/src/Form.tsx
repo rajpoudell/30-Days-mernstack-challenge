@@ -1,94 +1,85 @@
-
 import React from "react";
-import { Formik, Form, Field, ErrorMessage,FormikHelpers } from 'formik';
+import { Formik, Form, Field, ErrorMessage, FormikHelpers } from 'formik';
+import './form.css'; 
 
-//for bydefault value to be set 
 const initialValues = {
     name: '',
     email: '',
-    job:'',
-    salary:''
-  };
-const  Forms:React.FC = ()=> {
-      
-      //for submitting function
-      const onSubmit = async(values: any,{ resetForm }: FormikHelpers<any>) => {
+    job: '',
+    salary: ''
+};
+
+const Forms: React.FC = () => {
+    const onSubmit = async (values: any, { resetForm }: FormikHelpers<any>) => {
         try {
-            const response = await fetch("http://localhost:3001/user",{
-                method:"POST",
-                headers:{
+            const response = await fetch("http://localhost:4000/user", {
+                method: "POST",
+                headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(values),
             });
 
-            alert("Submitted to databases\n"+ JSON.stringify(values, null, 2));
-            resetForm();
+            alert("Submitted to database\n" + JSON.stringify(values, null, 2));
             if (response.ok) {
-                // Successful API call, handle the response if needed
                 console.log('Form data sent successfully:', values);
-                resetForm(); // Optionally reset the form after successful submission
-              } else {
-                // Handle API error
+                resetForm();
+            } else {
                 console.error('Failed to send form data:', response.statusText);
-              }
-            
-            
+            }
         } catch (error) {
             console.error('Error occurred during form submission:', error)
         }
+    };
 
-      };
-
-      //validate form and for showing error
-      const validate = (values: any) => {
+    const validate = (values: any) => {
         const errors: { [key: string]: string } = {};
         if (!values.name) {
             errors.name = "Required";
-          }
+        }
         if (!values.job) {
             errors.job = "Required";
-          }
+        }
         if (!values.salary) {
             errors.salary = "Required";
-          }
+        }
 
-          if (!values.email) {
+        if (!values.email) {
             errors.email = "Required";
-          } else if (
+        } else if (
             !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-          ) {
+        ) {
             errors.email = "Invalid email address";
-          }
+        }
         return errors;
-      };
-  return (
-    <div>
-        <center>
-            <h1>Registration</h1>
-            <Formik initialValues={initialValues} onSubmit={onSubmit} validate={validate} >
-                <Form >
-                    <label htmlFor="" > Name: <Field type="text" name="name" placeholder="Enter your name" /></label>
-                    <ErrorMessage name="name" />
-                        <br />
-                    <label htmlFor="" > job: <Field type="text" name="job" placeholder="Enter your job" /></label>
-                    <ErrorMessage name="job" />
-                        <br />
-                    <label htmlFor="" > salary: <Field type="text" name="salary" placeholder="Enter your salary" /></label>
-                    <ErrorMessage name="salary" />
-                        <br />
+    };
 
-                    <label htmlFor="" > Email: <Field type="text" name="email" placeholder="Enter your email" /></label>
-                    <ErrorMessage name="email" component="div" />
+    return (
+        <div className="form-container">
+            <h1 className="form-title">Registration</h1>
+            <Formik initialValues={initialValues} onSubmit={onSubmit} validate={validate}>
+                <Form>
+                    <label className="form-label" htmlFor="name">Name:</label>
+                    <Field className="form-input" type="text" name="name" placeholder="Enter your name" />
+                    <ErrorMessage className="form-error" name="name" component="div" />
 
-                    <button type="submit">Submit</button>
+                    <label className="form-label" htmlFor="job">Job:</label>
+                    <Field className="form-input" type="text" name="job" placeholder="Enter your job" />
+                    <ErrorMessage className="form-error" name="job" component="div" />
 
+                    <label className="form-label" htmlFor="salary">Salary:</label>
+                    <Field className="form-input" type="text" name="salary" placeholder="Enter your salary" />
+                    <ErrorMessage className="form-error" name="salary" component="div" />
+
+                    <label className="form-label" htmlFor="email">Email:</label>
+                    <Field className="form-input" type="text" name="email" placeholder="Enter your email" />
+                    <ErrorMessage className="form-error" name="email" component="div" />
+
+                    <button className="form-button" type="submit">Submit</button>
                 </Form>
             </Formik>
-        </center>
-    </div>
-
-  );
+        </div>
+    );
 }
 
 export default Forms;
