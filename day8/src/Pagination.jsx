@@ -3,20 +3,15 @@ import ReactPaginate from 'react-paginate';
 import './App.css';
 
 export const Pagination = () => {
-    
-// ... (existing imports)
-
-const [data, setData] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [sortOrder, setSortOrder] = useState("asc"); // "asc" or "desc"
+  const [data, setData] = useState([]);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [sortOrder, setSortOrder] = useState("asc");
   const recordsPerPage = 10;
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(
-          `http://localhost:3001/?page=${currentPage}&limit=${recordsPerPage}&sortField=name&sortOrder=${sortOrder}`
-        );
+        const response = await fetch('https://jsonplaceholder.typicode.com/posts');
 
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
@@ -26,44 +21,45 @@ const [data, setData] = useState([]);
         setData(fetchedData);
       } catch (error) {
         console.error(error);
-        // Handle error, e.g., show an error message to the user
       }
     };
 
     fetchData();
-  }, [currentPage, sortOrder]);
-const sortedData = [...data].sort((a, b) => {
-  const order = sortOrder === "asc" ? 1 : -1;
-  return order * (a.name.localeCompare(b.name));
-});
+  }, []);
 
+  // Sorting and slicing the data for the current page
+  const sortedData = [...data].sort((a, b) => {
+    const order = sortOrder === "asc" ? 1 : -1;
+    return order * (a.title.localeCompare(b.title));
+  });
 
-  const lastIndex = currentPage * recordsPerPage;
-  const firstIndex = lastIndex - recordsPerPage;
-  const records = sortedData.slice(firstIndex, lastIndex);
-  const nPage = Math.ceil(sortedData.length / recordsPerPage);
+  const startIndex = currentPage * recordsPerPage;
+  const currentRecords = sortedData.slice(startIndex, startIndex + recordsPerPage);
+  const pageCount = Math.ceil(data.length / recordsPerPage);
 
   const handlePageClick = (selectedPage) => {
-    setCurrentPage(selectedPage + 1);
+    setCurrentPage(selectedPage.selected);
   };
 
   const handleSortChange = () => {
     setSortOrder(sortOrder === "asc" ? "desc" : "asc");
   };
+
   const calculateSerialNumber = (index) => {
-    return (currentPage - 1) * recordsPerPage + index + 1;
+    return currentPage * recordsPerPage + index + 1;
   };
 
   return (
     <div>
-      <button onClick={handleSortChange}>Toggle Sort</button>
+      <button onClick={handleSortChange}>
+        Toggle Sort Order ({sortOrder === "asc" ? "Ascending" : "Descending"})
+      </button>
       <ul className="ul">
-        {records.map((d,index) => (
+        {currentRecords.map((d, index) => (
           <li key={d.id}>
             <strong>Sno:</strong> {calculateSerialNumber(index)}.
-            <strong>Name:</strong> {d.name}, 
-            <strong>Job:</strong> {d.job}
-            
+            <strong>Title:</strong> {d.title},
+            <strong>Body:</strong> {d.body}
             <hr />
           </li>
         ))}
@@ -71,10 +67,10 @@ const sortedData = [...data].sort((a, b) => {
 
       <nav className="paginationBar">
         <ReactPaginate
-          pageCount={nPage}
+          pageCount={pageCount}
           pageRangeDisplayed={3}
           marginPagesDisplayed={1}
-          onPageChange={(selected) => handlePageClick(selected.selected)}
+          onPageChange={handlePageClick}
           containerClassName={'pagination justify-content-center'}
           activeClassName={'active'}
         />
