@@ -5,12 +5,14 @@ import { Route, Routes } from "react-router-dom";
 import { Navbar } from "./navbar/navbar";
 import Login from "./Login";
 import { Nomatch } from "./Nomatch";
+import HomePage from "./Home";
 
 function App() {
   return (
     <div className="">
       <Routes>
         <Route path="/" element={<Navbar/>}>
+          <Route path="/" element={<HomePage/>}/>   
           <Route path="/register" element={<Form/>}/>   
           <Route path="/login" element={<Login/>}/>   
           <Route path="*" element={<Nomatch/>}/>   
