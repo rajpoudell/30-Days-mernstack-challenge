@@ -4,7 +4,8 @@ const  mongoose = require('mongoose');
 const cors = require('cors');
 const router = require('./routes/route');
 const PORT = 4000;
-mongoose.connect('mongodb://127.0.0.1:27017/day10after4thsem').then( (e)=> { console.log("mongodb connectd")});
+const mongoURI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/day10after4thsem';
+mongoose.connect(mongoURI).then( (e)=> { console.log("mongodb connectd")});
 
 const app = express();
 
