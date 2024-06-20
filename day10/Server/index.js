@@ -3,7 +3,7 @@ const  mongoose = require('mongoose');
 const cors = require('cors');
 const router = require('./routes/route');
 const PORT = 4000;
-const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/day10after4thsem';
+const mongoURI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/day10after4thsem';
 
 mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log("MongoDB connected"))
@@ -11,7 +11,7 @@ mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
 
 const app = express();
 
-// mongodb://127.0.0.1:27017
+// 
 
 app.use(cors())
 app.use(express.json());
