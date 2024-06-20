@@ -19,7 +19,7 @@ export const Form = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     // Send form data to the server
-    fetch("https://three0-days-mernstack-challenge-1.onrender.com/register", {
+    fetch("http://localhost:4000/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

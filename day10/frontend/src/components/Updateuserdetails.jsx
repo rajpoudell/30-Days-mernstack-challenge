@@ -19,7 +19,7 @@ const Updateuserdetails = () => {
       const decode = jwtDecode(token);
       setToken(token);
       setUserId(decode.userId);
-      fetch(`https://three0-days-mernstack-challenge-1.onrender.com/${decode.userId}`, {
+      fetch(`http://localhost:4000/${decode.userId}`, {
         method: "GET",
         headers: {
           Authorization: "Bearer " + token,
@@ -43,7 +43,7 @@ const Updateuserdetails = () => {
     e.preventDefault();
     try {
       const response = await axios.put(
-        `https://three0-days-mernstack-challenge-1.onrender.com/${userId}`,
+        `http://localhost:4000/${userId}`,
         { username: newUsername },
         {
           headers: {

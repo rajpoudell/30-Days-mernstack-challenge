@@ -10,7 +10,7 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('https://three0-days-mernstack-challenge-1.onrender.com/login', { email, password });
+      const response = await axios.post('http://localhost:4000/login', { email, password });
       const token = response.data.token;
       if (token) {
         localStorage.setItem('token', token);
