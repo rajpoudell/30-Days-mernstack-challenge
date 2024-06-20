@@ -78,15 +78,17 @@ const Updateuserdetails = () => {
           className="child"
           required
         />
+        
         <input
           type="text"
           name="Name"
           id="email"
-          value={email}
+          value={`Email: ${email}`}
           onChange={(e) => alert("email can't be changed")}
           className="child"
           disabled
         />
+        <p>Username: {name}</p>
         <br />
         <button className="btn" type="submit">
           {" "}

@@ -5,7 +5,7 @@ const ChangePassword = () => {
   const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [userId, setUserId] = useState("");
-  const [token, setToken] = useState("");
+  // const [token, setToken] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -13,7 +13,7 @@ const ChangePassword = () => {
     const storedToken = localStorage.getItem("token");
     if (storedToken) {
       const decodedToken = jwtDecode(storedToken);
-      setToken(storedToken);
+      // setToken(storedToken);
       setUserId(decodedToken.userId);
     }
 

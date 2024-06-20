@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 export const Home = () => {
   return (
@@ -14,9 +15,10 @@ export const Home = () => {
         <p className="mt-4 text-lg sm:text-xl md:text-2xl">
           We provide the best solutions for your business.
         </p>
-        <a href="#" className="mt-8 inline-block bg-white text-blue-600 py-3 px-5 rounded-lg shadow-md hover:bg-red-700">
+        <Link href="/login" className="mt-8 inline-block bg-white text-blue-600 py-3 px-5 rounded-lg shadow-md hover:bg-red-700">
+      
           Get Started
-        </a>
+        </Link>
       </div>
     </section>
 
