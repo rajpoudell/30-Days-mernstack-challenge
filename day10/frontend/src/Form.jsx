@@ -20,7 +20,7 @@ export const Form = () => {
     e.preventDefault();
     // Send form data to the server
     fetch("http://localhost:4000/register", {
-      method: "PUT",
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },

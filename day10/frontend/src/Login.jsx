@@ -12,11 +12,10 @@ const Login = () => {
     try {
       const response = await axios.post('http://localhost:4000/login', { email, password });
       const token = response.data.token;
-
       if (token) {
         localStorage.setItem('token', token);
         console.log("Login successfully:", token);
-        alert("Login successful");
+        alert(response.data.message);
         navigate('/myprofile')
       } else {
         alert("Login failed: " + response.data.message);
