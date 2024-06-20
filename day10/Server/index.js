@@ -4,12 +4,12 @@ const  mongoose = require('mongoose');
 const cors = require('cors');
 const router = require('./routes/route');
 const PORT = 4000;
-const mongoURI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/day10after4thsem';
+const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017//day10after4thsem';
 mongoose.connect(mongoURI).then( (e)=> { console.log("mongodb connectd")});
 
 const app = express();
 
-
+// mongodb://127.0.0.1:27017
 app.use(bodyParser.json());
 
 app.use(cors())
