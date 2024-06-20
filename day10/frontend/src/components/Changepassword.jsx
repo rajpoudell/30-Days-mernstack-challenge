@@ -18,7 +18,7 @@ const ChangePassword = () => {
     }
 
     try {
-      const response = await fetch(`http://localhost:4000/change-password/${userId}`, {
+      const response = await fetch(`https://three0-days-mernstack-challenge-1.onrender.com/change-password/${userId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

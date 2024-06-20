@@ -16,7 +16,7 @@ const Profile = () => {
       const decode =  jwtDecode(token);
       setToken(token);
       setUserId(decode.userId);
-      fetch(`http://localhost:4000/${decode.userId}`,{
+      fetch(`https://three0-days-mernstack-challenge-1.onrender.com/${decode.userId}`,{
         method:'GET',
         headers: { 
           'Authorization': 'Bearer ' + token,
