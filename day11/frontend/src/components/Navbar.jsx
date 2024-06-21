@@ -14,7 +14,7 @@ export const Navbar = () => {
             <Link to="/register">Register</Link>
           </li>
           <li>
-            <Link to="/login">Users </Link>{" "}
+            <Link to="/users">Users </Link>
           </li>
         </ul>
       </nav>
