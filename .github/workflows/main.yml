@@ -23,6 +23,9 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '20'  # Define the Node.js version to use
+          
+      - name: Force use Node.js 20
+        run: sudo npm cache clean -f && sudo npm install -g n && sudo n 20
 
       - name: Install dependencies
         run: npm install
