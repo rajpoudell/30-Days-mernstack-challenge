@@ -1,19 +1,16 @@
+// src/components/ConnectionManager.js
 import React from 'react';
-import { socket } from '../socket';
+import { Button, Stack } from '@mui/material';
 
-export function ConnectionManager() {
-  function connect() {
-    socket.connect();
-  }
-
-  function disconnect() {
-    socket.disconnect();
-  }
-
+export function ConnectionManager({ onConnect, onDisconnect }) {
   return (
-    <>
-      <button onClick={ connect }>Connect</button>
-      <button onClick={ disconnect }>Disconnect</button>
-    </>
+    <Stack spacing={2} direction="row">
+      <Button variant="contained" color="primary" onClick={onConnect}>
+        Connect
+      </Button>
+      <Button variant="contained" color="secondary" onClick={onDisconnect}>
+        Disconnect
+      </Button>
+    </Stack>
   );
 }

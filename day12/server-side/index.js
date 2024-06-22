@@ -17,22 +17,23 @@ const io = new Server(server,{
 app.get('/', (req, res) => {
   res.send('Welcome')
 });
-// Handle WebSocket connections
 io.on('connection', (socket) => {
-    console.log('userId:' ,socket.id);
+  console.log('User connected:', socket.id);
 
-    socket.on('message', (data) =>{
-      console.log(data.room, data.message);
-      io.to(data.room).emit('receive-msg',data.message)
-    });
-    socket.on('join-room', (room) =>{
-      socket.join(room)
-    });
-    
-    socket.on("disconnect", () =>{
-      console.log(`User disconnected: ${socket.id}`);
-    })
- 
+  socket.on('join-room', (room) => {
+    socket.join(room);
+    socket.to(room).emit('welcome', `${socket.id} has joined the room`);
+  });
+
+  socket.on('message', ({ message, room, sender }) => {
+    const msg = { sender, message };
+    console.log('Message received:', msg);
+    io.to(room).emit('receive-msg', msg);
+  });
+
+  socket.on('disconnect', () => {
+    console.log('User disconnected:', socket.id);
+  });
 });
 
 // Start the server

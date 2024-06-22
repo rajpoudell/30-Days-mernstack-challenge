@@ -1,25 +1,30 @@
+// src/components/MyForm.js
 import React, { useState } from 'react';
-import { socket } from '../socket';
+import { Button, TextField, Stack } from '@mui/material';
 
-export function MyForm() {
-  const [value, setValue] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+export function MyForm({ onSubmit }) {
+  const [message, setMessage] = useState('');
 
-  function onSubmit(event) {
-    event.preventDefault();
-    setIsLoading(true);
-
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 5000);
-    
-  }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSubmit(message);
+    setMessage('');
+  };
 
   return (
-    <form onSubmit={ onSubmit }>
-      <input onChange={ e => setValue(e.target.value) } />
-
-      <button type="submit" disabled={ isLoading }>Submit</button>
+    <form onSubmit={handleSubmit}>
+      <Stack spacing={2}>
+        <TextField
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          label="Message"
+          variant="outlined"
+          fullWidth
+        />
+        <Button variant="contained" color="primary" type="submit">
+          Send
+        </Button>
+      </Stack>
     </form>
   );
 }
