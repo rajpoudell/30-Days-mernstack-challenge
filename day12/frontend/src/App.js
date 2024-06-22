@@ -53,7 +53,7 @@ const App = () => {
           value={roomName}
           onChange={(e) => setRoomName(e.target.value)}
           id="outlined-basic"
-          label="Room Name"
+          label="Your Name"
           variant="outlined"
         />
          <Button variant="contained" color="primary" type="submit">
@@ -65,7 +65,7 @@ const App = () => {
           value={room}
           onChange={(e) => setRoom(e.target.value)}
           id="outlined-basic"
-          label="room"
+          label="Room Name"
           variant="outlined"
         />
         <TextField
@@ -80,6 +80,7 @@ const App = () => {
         </Button>
       </form>
       <Stack>
+        
         {messages.map((m,i) =>(
           <Typography key={i} variant="h6" component="div" gutterBottom>
             {m}
