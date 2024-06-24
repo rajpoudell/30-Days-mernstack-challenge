@@ -5,24 +5,26 @@ import { Link, useNavigate } from 'react-router-dom';
 const Login = () => { 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:4000/login', { username, password });
+      const response = await axios.post(`http://localhost:4000/login`, { username, password });
       const token = response.data.token;
 
       if (token) {
         localStorage.setItem('token', token);
         console.log("Login successfully:", token);
         alert("Login successful");
-        navigate('/myprofile')
+        navigate('/myprofile');
       } else {
         alert("Login failed: " + response.data.message);
       }
     } catch (error) {
       console.error('Error logging in', error);
+      setError('Login failed. Please check your credentials and try again.');
     }
   };
 
@@ -43,21 +45,19 @@ const Login = () => {
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
           <form className="space-y-6" onSubmit={handleLogin}>
             <div>
-            <div className="flex items-center justify-between">
-                <label
-                  htmlFor="username"
-                  className="block text-sm font-medium leading-6 text-gray-900"
-                >
-                  Username
-                </label>
-              </div>
+              <label
+                htmlFor="username"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
+                Username
+              </label>
               <div className="mt-2">
                 <input
-                onChange={(e) => setUsername(e.target.value)}
-                  id="email"
+                  onChange={(e) => setUsername(e.target.value)}
+                  id="username"
                   name="username"
                   type="text"
-                  autoComplete="email"
+                  autoComplete="username"
                   required
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
@@ -65,17 +65,15 @@ const Login = () => {
             </div>
 
             <div>
-              <div className="flex items-center justify-between">
-                <label
-                  htmlFor="password"
-                  className="block text-sm font-medium leading-6 text-gray-900"
-                >
-                  Password
-                </label>
-              </div>
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
+                Password
+              </label>
               <div className="mt-2">
                 <input
-                onChange={(e) => setPassword(e.target.value)}
+                  onChange={(e) => setPassword(e.target.value)}
                   id="password"
                   name="password"
                   type="password"
@@ -85,6 +83,8 @@ const Login = () => {
                 />
               </div>
             </div>
+
+            {error && <p className="text-red-500 text-sm">{error}</p>}
 
             <div>
               <button
@@ -97,12 +97,12 @@ const Login = () => {
           </form>
 
           <p className="mt-10 text-center text-sm text-gray-500">
-            New member??{" "}
+            New member?{" "}
             <Link
-              to="/register" // Specify the path you want the link to navigate to
+              to="/register"
               className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
             >
-               Registration...
+              Register now.
             </Link>
           </p>
         </div>
