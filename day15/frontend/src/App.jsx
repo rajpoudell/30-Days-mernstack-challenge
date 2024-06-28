@@ -7,7 +7,7 @@ function App() {
   const { t } = useTranslation();
 
   const {line1,line2} = t("description",{
-    channel:"Raj"
+    something:"This"
   });
 
   return (
