@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-export const Product = () => {
+const Product = () => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
@@ -56,3 +56,5 @@ export const Product = () => {
     </section>
   );
 };
+
+export default Product;

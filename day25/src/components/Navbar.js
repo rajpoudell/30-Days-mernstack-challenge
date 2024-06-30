@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { Link, Outlet } from "react-router-dom";
 
 const Navbar = () => {
@@ -10,15 +10,22 @@ const Navbar = () => {
             <Link to="/">Home</Link>
           </li>
           <li>
-            <Link to="/blogs">Blogs</Link>
+            <Link to="/product">Products</Link>
           </li>
           <li>
-            <Link to="/contact">Contact</Link>
+            <Link to="/service">service</Link>
           </li>
         </ul>
       </nav>
-
-      <Outlet />
+      <Suspense
+        fallback={
+          <h1 class="text-3xl font-bold text-gray-100 text-center">
+            Loading...          
+            </h1>
+        }
+      >
+        <Outlet />
+      </Suspense>
     </>
   );
 };
