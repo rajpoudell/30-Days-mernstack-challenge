@@ -19,7 +19,7 @@ const Navbar = () => {
       </nav>
       <Suspense
         fallback={
-          <h1 class="text-3xl font-bold text-gray-100 text-center">
+          <h1 className="text-3xl font-bold text-sky-400/100 text-center">
             Loading...          
             </h1>
         }
